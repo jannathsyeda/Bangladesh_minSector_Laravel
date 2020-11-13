@@ -14,7 +14,7 @@
                 <div class="card mt-5">
                     <div class="card-header  bg-dark text-white">
                       <h3 class="card-title float-left p-0 m-0"><strong>Ministry Sectors</strong></h3>
-                    <a href="{{route('admin.MinistrySectors.create')}}" class="btn btn-success btn-md float-right c-white">Add New <i class="fa fa-plus"></i></a>
+                    <a href="{{route('admin.Ministers.create')}}" class="btn btn-success btn-md float-right c-white">Add New <i class="fa fa-plus"></i></a>
                     </div>
                     <!-- card-header -->
                     @if ($Ministers->count() > 0)
@@ -25,12 +25,12 @@
                         <tr>
                           <th width="10%">#</th>
                           <th>Minister Name</th>
-                          <th>Image</th>
+                          <th width="25%">Image</th>
 
                           <th>Achievement</th>
                           <th>Gender</th>
-                          <th>Details</th>
-                          <th width="25%">Action</th>
+                          <th width="25%">Details</th>
+                          <th width="50%">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -40,11 +40,11 @@
                           <td>{{ $Minister->name }}</td>
                           <td>
                             <img style="height: 70px; width: 60px;"
-                             class="img-fluid" src="{{ asset('storage/'.$Minister->image) }}" alt="image">
+                             class="img-fluid" src="{{ asset('storage/ministers/'.$Minister->image) }}" alt="image">
                           </td>
-                          <td>{!! $Minister->achievement !!}</td>
+                          <td>{{ $Minister->achievement }}</td>
                           <td>{{ $Minister->gender }}</td>
-                          <td>{!! $Minister->description !!}</td>
+                          <td>{!! str_limit($Minister->details,10)!!}</td>
                           <td> 
                             <a href="{{ route('admin.Ministers.edit', $Minister->id) }}" class="btn btn-info">Edit</a>
                              <button type="submit" onclick="handleDeleteMinister( {{ $Minister->id }}) " class="btn btn-danger">Delete</button>

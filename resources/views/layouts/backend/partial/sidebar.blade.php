@@ -93,7 +93,7 @@ body {
        </a>
 
        <a class="{{ Request::is('admin/Ministers*') ? 'active' : '' }}"
-               href="{{ route('admin.Ministers.index ')}}">
+               href="{{ route('admin.Ministers.index')}}">
               All Ministers     
              </a>
 

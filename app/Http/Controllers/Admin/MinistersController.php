@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Carbon\Carbon;
+
 use App\Ministers;
 
 class MinistersController extends Controller
@@ -26,7 +30,7 @@ class MinistersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.Ministers.create');
     }
 
     /**
@@ -37,7 +41,59 @@ class MinistersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'title' =>'required',
+            'achievement' =>'required',
+
+            'gender' =>'required',
+            'details' =>'required',
+
+            'image' => 'required|mimes:jpeg,png,jpg',
+
+
+            ]);
+
+
+
+               // Get Form Image
+          $image = $request->file('image');
+
+         
+          if (isset($image)) {
+
+                   
+             // Make Unique Name for Image 
+            $currentDate = Carbon::now()->toDateString();
+            $imageName =$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+  
+  
+          // Check Category Dir is exists
+  
+              if (!Storage::disk('public')->exists('ministers')) {
+                 Storage::disk('public')->makeDirectory('ministers');
+              }
+  
+  
+              // Resize Image for category and upload
+              $MinistersImage = Image::make($image)->resize(180,210)->stream();
+              Storage::disk('public')->put('ministers/'.$imageName,$MinistersImage);
+  
+     }else{
+      $imageName = "default.png";
+     }
+
+            $Ministers = new Ministers();
+            $Ministers->name = $request->name;
+            $Ministers->title = $request->title;
+            $Ministers->achievement = $request->achievement;
+            $Ministers->image= $imageName;
+            $Ministers->gender = $request->gender;
+            $Ministers->details = $request->details;
+            $Ministers->save();
+
+    
+            return redirect(route('admin.Ministers.index'))->with('success', 'Minister Inserted Successfully');
     }
 
     /**
