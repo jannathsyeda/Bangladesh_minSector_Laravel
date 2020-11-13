@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMinistrySectorsTable extends Migration
+class CreateMinistersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,18 @@ class CreateMinistrySectorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ministry_sectors', function (Blueprint $table) {
+        Schema::create('ministers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('sector');
-            $table->text('description');
+            $table->string('name');
+            $table->string('image')->default('default.png');
+            $table->string('title');
+            $table->text('achievement');
+            $table->string('gender');
+            $table->text('details');
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -28,6 +33,6 @@ class CreateMinistrySectorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ministry_sectors');
+        Schema::dropIfExists('ministers');
     }
 }

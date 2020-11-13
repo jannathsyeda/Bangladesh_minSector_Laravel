@@ -92,8 +92,8 @@ body {
                Ministry Sectors
        </a>
 
-       <a class=""
-               href="">
+       <a class="{{ Request::is('admin/Ministers*') ? 'active' : '' }}"
+               href="{{ route('admin.Ministers.index ')}}">
               All Ministers     
              </a>
 

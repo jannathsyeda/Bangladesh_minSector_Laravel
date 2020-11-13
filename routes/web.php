@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/contact',function() {
-	return view('contact');
-})->middleware('age');
+
 
 
 
@@ -30,6 +28,7 @@ Route::group([ 'as'=>'admin.', 'prefix'=>'admin' , 'namespace'=>'Admin', 'middle
 function(){
 	Route::get('dashboard','DashboardController@index')->name('dashboard');
 	Route::resource('MinistrySectors', 'MinistrySectorController');
+	Route::resource('Ministers', 'MinistersController');
 
 
 
