@@ -23,17 +23,17 @@
                         @csrf
                         <div class="form-group">
                           <label for="name"> Name: </label>
-                          <input type="text" class="form-control" placeholder="Enter Name" id="name" name="name">
+                          <input type="text" class="form-control" placeholder="Enter Name" id="name" name="name" value="{{ old('name')}}">
                         </div>
                           <div class="form-group">
                           <label for="title"> Title: </label>
-                          <input type="text" class="form-control" placeholder="Enter title" id="title" name="title">
+                          <input type="text" class="form-control" placeholder="Enter title" id="title" name="title" value="{{ old('title')}}">
                         </div>
 
                         <div class="form-group">
                           <label for="image"> Image: </label>
                          
-                          <input type="file" id="file" class="form-control" onchange="readURL(this);" required="" name="image">           
+                          <input type="file" id="file" class="form-control" onchange="readURL(this);" required="" name="image" >           
                     
                               <img  id="one">
                          </div>
@@ -63,7 +63,7 @@
            <div class="form-group">
 
                   <label for="achievement">Achievements: </label><br>
-                  <textarea id="achievement" type="text" name="achievement">
+                  <textarea id="achievement" type="text" name="achievement" value="{{ old('achievement')}}" >
                     </textarea>
           </div>
 

@@ -115,8 +115,13 @@ class MinistersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $Ministers = Ministers::find($id);
+        return view('admin.Ministers.edit',compact('Ministers'));
     }
+
+
+
+   
 
     /**
      * Update the specified resource in storage.
@@ -127,7 +132,72 @@ class MinistersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'title' =>'required',
+            'achievement' =>'required',
+
+            'gender' =>'required',
+            'details' =>'required',
+            'image' => 'mimes:jpeg,png,jpg',
+
+
+  
+           ]);
+
+           $Ministers = Ministers::find($id);
+
+           // Get Form Image
+        $image = $request->file('image');
+
+        if (isset($image)) {
+             
+        // Make Unique Name for Image 
+        $currentDate = Carbon::now()->toDateString();
+        $imageName =$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+  
+  
+        // Check Category Dir is exists
+        if (!Storage::disk('public')->exists('ministers')) {
+            Storage::disk('public')->makeDirectory('ministers');
+        }
+  
+        // Delete old post image
+        if(Storage::disk('public')->exists('ministers/'.$Ministers->image)){
+            Storage::disk('public')->delete('ministers/'.$Ministers->image);
+        }
+  
+        // Resize Image for category and upload
+        $MinistersImage = Image::make($image)->resize(1600,1066)->stream();
+        Storage::disk('public')->put('ministers/'.$imageName,$MinistersImage);
+  
+     }else{
+
+        $ext = pathinfo(public_path().'ministers/'.$Ministers->image, PATHINFO_EXTENSION);
+        $currentDate = Carbon::now()->toDateString();
+        $imageName = $currentDate.'-'.uniqid().'.'.$ext;
+              
+        Storage::disk('public')->rename('ministers/'.$Ministers->image, 'ministers/'.$imageName);
+        $Ministers->image = $imageName;
+     }
+  
+    
+
+  
+    $Ministers->name = $request->name;
+    $Ministers->title = $request->title;
+    $Ministers->achievement = $request->achievement;
+    $Ministers->image= $imageName;
+    $Ministers->gender = $request->gender;
+    $Ministers->details = $request->details;
+    $Ministers->save();
+
+
+
+
+   
+    return redirect(route('admin.Ministers.index'))->with('success', 'Minister Updated Successfully');
+        
     }
 
     /**
@@ -138,6 +208,7 @@ class MinistersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Ministers::find($id)->delete();
+        return redirect(route('admin.Ministers.index'))->with('success', 'Successfully Deleted');
     }
 }

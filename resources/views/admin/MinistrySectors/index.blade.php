@@ -7,7 +7,7 @@
 
 <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-9">
+            <div class="col-md-12">
 
                 @include('partialFolder.successMessage')
 
@@ -25,7 +25,7 @@
                         <tr>
                           <th width="10%">#</th>
                           <th>Sector Name</th>
-                          <th>Description</th>
+                          <th>Created At</th>
                           <th width="25%">Action</th>
                         </tr>
                         </thead>
@@ -34,8 +34,9 @@
                         <tr>
                           <td>{{ $key +1 }}</td>
                           <td>{{ $sector->sector }}</td>
-                          <td>{!! $sector->description !!}</td>
+                          <td> {{ $sector->created_at->diffforhumans() }}</td>
                           <td> 
+                            <a href="" class="btn btn-success">Details</a>
                             <a href="{{ route('admin.MinistrySectors.edit', $sector->id) }}" class="btn btn-info">Edit</a>
                              <button type="submit" onclick="handleDeleteSector( {{ $sector->id }}) " class="btn btn-danger">Delete</button>
                           </td>
