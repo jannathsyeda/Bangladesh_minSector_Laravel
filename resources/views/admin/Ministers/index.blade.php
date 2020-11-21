@@ -7,7 +7,7 @@
 
 <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-9">
+            <div class="col-md-12">
 
                 @include('partialFolder.successMessage')
 
@@ -23,13 +23,13 @@
                       <table id="dataTableId" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th width="10%">#</th>
+                          <th width="15%">#</th>
                           <th>Minister Name</th>
-                          <th width="25%">Image</th>
+                          <th width="20%">Image</th>
 
                           <th>Achievement</th>
                           <th>Gender</th>
-                          <th width="25%">Details</th>
+                          <th>Details</th>
                           <th width="50%">Action</th>
                         </tr>
                         </thead>
@@ -44,8 +44,10 @@
                           </td>
                           <td>{{ $Minister->achievement }}</td>
                           <td>{{ $Minister->gender }}</td>
-                          <td>{!! str_limit($Minister->details,10)!!}</td>
+                          <td>{!! str_limit($Minister->details,20)!!}</td>
                           <td> 
+                            <a href="{{ route('admin.Ministers.show', $Minister->id) }}" class="btn btn-success">Details</a>
+
                             <a href="{{ route('admin.Ministers.edit', $Minister->id) }}" class="btn btn-info">Edit</a>
                              <button type="submit" onclick="handleDeleteMinister( {{ $Minister->id }}) " class="btn btn-danger">Delete</button>
                           </td>

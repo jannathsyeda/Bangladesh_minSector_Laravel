@@ -23,10 +23,10 @@
                       <table id="dataTableId" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th width="10%">#</th>
+                          <th width="20%">#</th>
                           <th>Sector Name</th>
                           <th>Created At</th>
-                          <th width="25%">Action</th>
+                          <th width="35%">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,7 +36,7 @@
                           <td>{{ $sector->sector }}</td>
                           <td> {{ $sector->created_at->diffforhumans() }}</td>
                           <td> 
-                            <a href="" class="btn btn-success">Details</a>
+                            <a href="{{ route('admin.MinistrySectors.show', $sector->id) }}" class="btn btn-success">Details</a>
                             <a href="{{ route('admin.MinistrySectors.edit', $sector->id) }}" class="btn btn-info">Edit</a>
                              <button type="submit" onclick="handleDeleteSector( {{ $sector->id }}) " class="btn btn-danger">Delete</button>
                           </td>

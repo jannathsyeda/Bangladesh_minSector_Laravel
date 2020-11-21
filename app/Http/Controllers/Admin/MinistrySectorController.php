@@ -61,7 +61,10 @@ class MinistrySectorController extends Controller
      */
     public function show($id)
     {
-        //
+    
+    $MinistrySector = MinistrySector::find($id);
+      return view('admin.MinistrySectors.show',compact('MinistrySector'));
+
     }
 
     /**

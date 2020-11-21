@@ -104,7 +104,10 @@ class MinistersController extends Controller
      */
     public function show($id)
     {
-        //
+    
+    $Ministers = Ministers::find($id);
+      return view('admin.Ministers.show',compact('Ministers'));
+
     }
 
     /**
