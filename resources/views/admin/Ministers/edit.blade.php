@@ -68,7 +68,7 @@
            <div class="form-group">
 
                   <label for="achievement">Achievements: </label><br>
-                  <textarea id="achievement" type="text" name="achievement">
+                  <textarea class="form-control" id="achievement" type="text" name="achievement">
                     {!!$Ministers->achievement!!}</textarea>
           </div>
 

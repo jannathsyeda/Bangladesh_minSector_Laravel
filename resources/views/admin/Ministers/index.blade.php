@@ -23,14 +23,13 @@
                       <table id="dataTableId" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th width="15%">#</th>
+                          <th>#</th>
                           <th>Minister Name</th>
-                          <th width="20%">Image</th>
+                          <th>Image</th>
 
                           <th>Achievement</th>
                           <th>Gender</th>
-                          <th>Details</th>
-                          <th width="50%">Action</th>
+                          <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -44,7 +43,6 @@
                           </td>
                           <td>{{ $Minister->achievement }}</td>
                           <td>{{ $Minister->gender }}</td>
-                          <td>{!! str_limit($Minister->details,20)!!}</td>
                           <td> 
                             <a href="{{ route('admin.Ministers.show', $Minister->id) }}" class="btn btn-success">Details</a>
 

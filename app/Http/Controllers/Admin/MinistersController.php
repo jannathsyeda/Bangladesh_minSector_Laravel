@@ -19,7 +19,7 @@ class MinistersController extends Controller
      */
     public function index()
     {
-        $Ministers = Ministers::latest()->paginate(8);
+        $Ministers = Ministers::latest()->paginate(5);
         return view('admin.Ministers.index',compact('Ministers'));
     }
 
@@ -76,7 +76,7 @@ class MinistersController extends Controller
   
   
               // Resize Image for category and upload
-              $MinistersImage = Image::make($image)->resize(180,210)->stream();
+              $MinistersImage = Image::make($image)->resize(300,350)->stream();
               Storage::disk('public')->put('ministers/'.$imageName,$MinistersImage);
   
      }else{
@@ -171,7 +171,7 @@ class MinistersController extends Controller
         }
   
         // Resize Image for category and upload
-        $MinistersImage = Image::make($image)->resize(1600,1066)->stream();
+        $MinistersImage = Image::make($image)->resize(300,350)->stream();
         Storage::disk('public')->put('ministers/'.$imageName,$MinistersImage);
   
      }else{

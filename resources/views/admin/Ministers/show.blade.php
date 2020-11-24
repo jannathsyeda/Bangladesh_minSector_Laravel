@@ -13,14 +13,14 @@
 				<div class="card-body">
 					<table class="table">
 						<tr >
-							<td><img style="" class="img-fluid" src="{{ asset('storage/ministers/'.$Ministers->image) }}" alt="image"></td>
+							<td><img class="img-fluid" src="{{ asset('storage/ministers/'.$Ministers->image) }}" alt="image" style="width: 300px"></td>
 						</tr>
 						<tr>
 							<th>Name:</th>
 							<td>{{ $Ministers->name }}</td>
 						</tr>
 						<tr>
-							<th>Title:</th>
+							<th>Designation:</th>
 							<td>{{ $Ministers->title }}</td>
 						</tr>
 						<tr>
