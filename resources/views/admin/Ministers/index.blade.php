@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 @section('title')
-    Ministers
+    All Ministers
 @endsection
 @section('content')
 
@@ -13,7 +13,7 @@
 
                 <div class="card mt-5">
                     <div class="card-header  bg-dark text-white">
-                      <h3 class="card-title float-left p-0 m-0"><strong>Ministry Sectors</strong></h3>
+                      <h3 class="card-title float-left p-0 m-0"><strong>All Ministers</strong></h3>
                     <a href="{{route('admin.Ministers.create')}}" class="btn btn-success btn-md float-right c-white">Add New <i class="fa fa-plus"></i></a>
                     </div>
                     <!-- card-header -->
@@ -26,8 +26,7 @@
                           <th>#</th>
                           <th>Minister Name</th>
                           <th>Image</th>
-
-                          <th>Achievement</th>
+                           <th>Designation</th>
                           <th>Gender</th>
                           <th>Action</th>
                         </tr>
@@ -41,7 +40,7 @@
                             <img style="height: 70px; width: 60px;"
                              class="img-fluid" src="{{ asset('storage/ministers/'.$Minister->image) }}" alt="image">
                           </td>
-                          <td>{{ $Minister->achievement }}</td>
+                          <td>{{ $Minister->title }}</td>
                           <td>{{ $Minister->gender }}</td>
                           <td> 
                             <a href="{{ route('admin.Ministers.show', $Minister->id) }}" class="btn btn-success">Details</a>

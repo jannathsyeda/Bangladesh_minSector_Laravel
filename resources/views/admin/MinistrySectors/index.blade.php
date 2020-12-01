@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 @section('title')
-    MinistrySectors
+   All Setors
 @endsection
 @section('content')
 
@@ -13,7 +13,7 @@
 
                 <div class="card mt-5">
                     <div class="card-header  bg-dark text-white">
-                      <h3 class="card-title float-left p-0 m-0"><strong>Ministry Sectors</strong></h3>
+                      <h3 class="card-title float-left p-0 m-0"><strong>All Sectors</strong></h3>
                     <a href="{{route('admin.MinistrySectors.create')}}" class="btn btn-success btn-md float-right c-white">Add New <i class="fa fa-plus"></i></a>
                     </div>
                     <!-- card-header -->
@@ -25,6 +25,7 @@
                         <tr>
                           <th width="20%">#</th>
                           <th>Sector Name</th>
+                            <th>Image</th>
                           <th>Created At</th>
                           <th width="35%">Action</th>
                         </tr>
@@ -34,6 +35,10 @@
                         <tr>
                           <td>{{ $key +1 }}</td>
                           <td>{{ $sector->sector }}</td>
+                            <td>
+                            <img style="height: 70px; width: 60px;"
+                             class="img-fluid" src="{{ asset('storage/ministers/'.$sector->image) }}" alt="image">
+                          </td>
                           <td> {{ $sector->created_at->diffforhumans() }}</td>
                           <td> 
                             <a href="{{ route('admin.MinistrySectors.show', $sector->id) }}" class="btn btn-success">Details</a>

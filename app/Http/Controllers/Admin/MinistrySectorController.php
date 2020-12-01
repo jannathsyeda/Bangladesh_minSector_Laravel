@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\MinistrySector;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Carbon\Carbon;
 
 
 class MinistrySectorController extends Controller
@@ -40,16 +43,46 @@ class MinistrySectorController extends Controller
     {
         $this->validate($request,[
             'sector' => 'required',
-            'description' =>'required'
+            'description' =>'required',
+            'image' => 'required|mimes:jpeg,png,jpg',
 
             ]);
 
+               // Get Form Image
+          $image = $request->file('image');
+
+         
+          if (isset($image)) {
+
+                   
+             // Make Unique Name for Image 
+            $currentDate = Carbon::now()->toDateString();
+            $imageName =$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+  
+  
+          // Check Category Dir is exists
+  
+              if (!Storage::disk('public')->exists('ministers')) {
+                 Storage::disk('public')->makeDirectory('ministers');
+              }
+  
+  
+              // Resize Image for category and upload
+              $SectorImage = Image::make($image)->resize(170,200)->stream();
+              Storage::disk('public')->put('ministers/'.$imageName,$SectorImage);
+  
+     }else{
+      $imageName = "default.png";
+     }
+
             $MinistrySector = new MinistrySector();
             $MinistrySector->sector = $request->sector;
+            $MinistrySector->image = $imageName;
+
             $MinistrySector->description = $request->description;
             $MinistrySector->save();
     
-            return redirect(route('admin.MinistrySectors.index'))->with('success', 'MinistrySector Inserted Successfully');
+            return redirect(route('admin.MinistrySectors.index'))->with('success', 'Sector Inserted Successfully');
         }
     
 
@@ -95,7 +128,44 @@ class MinistrySectorController extends Controller
 
             ]);
 
+          // Get Form Image
+        $image = $request->file('image');
+
+        if (isset($image)) {
+             
+        // Make Unique Name for Image 
+        $currentDate = Carbon::now()->toDateString();
+        $imageName =$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+  
+  
+        // Check Category Dir is exists
+        if (!Storage::disk('public')->exists('ministers')) {
+            Storage::disk('public')->makeDirectory('ministers');
+        }
+  
+        // Delete old post image
+        if(Storage::disk('public')->exists('ministers/'.$MinistrySector->image)){
+            Storage::disk('public')->delete('ministers/'.$MinistrySector->image);
+        }
+  
+        // Resize Image for category and upload
+        $SectorImage = Image::make($image)->resize(170,200)->stream();
+        Storage::disk('public')->put('ministers/'.$imageName,$SectorImage);
+  
+     }else{
+
+        $ext = pathinfo(public_path().'ministers/'.$MinistrySector->image, PATHINFO_EXTENSION);
+        $currentDate = Carbon::now()->toDateString();
+        $imageName = $currentDate.'-'.uniqid().'.'.$ext;
+              
+        Storage::disk('public')->rename('ministers/'.$MinistrySector->image, 'ministers/'.$imageName);
+        $MinistrySector->image = $imageName;
+     }
+  
+    
+
             $MinistrySector->sector = $request->sector;
+            $MinistrySector->image = $imageName;
             $MinistrySector->description = $request->description;
             $MinistrySector->save();
     

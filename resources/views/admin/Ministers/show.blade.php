@@ -12,8 +12,8 @@
 				<div class="card-header"><strong>Details</strong></div>
 				<div class="card-body">
 					<table class="table">
-						<tr >
-							<td><img class="img-fluid" src="{{ asset('storage/ministers/'.$Ministers->image) }}" alt="image" style="width: 300px"></td>
+						<tr>
+							<td><img class="img-fluid" src="{{ asset('storage/ministers/'.$Ministers->image) }}" alt="image" style="width:170px;"></td>
 						</tr>
 						<tr>
 							<th>Name:</th>

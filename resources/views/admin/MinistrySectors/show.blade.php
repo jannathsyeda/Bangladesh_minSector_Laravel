@@ -12,6 +12,9 @@ MinistrySector Details
 				<div class="card-header"><strong>Details</strong></div>
 				<div class="card-body">
 					<table class="table">
+							<tr>
+							<td><img class="img-fluid" src="{{ asset('storage/ministers/'.$MinistrySector->image) }}" alt="image" style="width: 300px;"></td>
+						</tr>
 					<tr>
                             <th width="20%">Sector Name:</th>
 							<td>{{ $MinistrySector->sector }}</td>

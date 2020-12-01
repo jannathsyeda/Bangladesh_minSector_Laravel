@@ -16,6 +16,7 @@ class CreateMinistrySectorsTable extends Migration
         Schema::create('ministry_sectors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('sector');
+            $table->string('image')->default('default.png');
             $table->text('description');
             $table->timestamps();
         });

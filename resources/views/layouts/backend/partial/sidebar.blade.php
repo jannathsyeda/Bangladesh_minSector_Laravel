@@ -89,7 +89,7 @@ body {
        <a class="{{ Request::is('admin/MinistrySectors*') ? 'active' : '' }}"
                href="{{ route('admin.MinistrySectors.index')}}">
 
-               Ministry Sectors
+              All Sectors
        </a>
 
        <a class="{{ Request::is('admin/Ministers*') ? 'active' : '' }}"
@@ -113,8 +113,8 @@ body {
       function logout(){
           const swalWithBootstrapButtons = Swal.mixin({
                customClass: {
-               confirmButton: 'btn btn-success',
-               cancelButton: 'btn btn-danger'
+               confirmButton: 'btn btn-success m-2',
+               cancelButton: 'btn btn-danger m-2'
                },
                buttonsStyling: false
            })
