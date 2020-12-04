@@ -11,12 +11,19 @@
 
                 @include('partialFolder.successMessage')
 
+
+
+
+
+
+
                 <div class="card mt-5">
                     <div class="card-header  bg-dark text-white">
+  
                       <h3 class="card-title float-left p-0 m-0"><strong>All Sectors</strong></h3>
                     <a href="{{route('admin.MinistrySectors.create')}}" class="btn btn-success btn-md float-right c-white">Add New <i class="fa fa-plus"></i></a>
                     </div>
-                    <!-- card-header -->
+             <!-- card-header -->
                     @if ($Sectors->count() > 0)
                     <div class="card-body">
                     <div class="table-responsive">
@@ -43,7 +50,17 @@
                           <td> 
                             <a href="{{ route('admin.MinistrySectors.show', $sector->id) }}" class="btn btn-success">Details</a>
                             <a href="{{ route('admin.MinistrySectors.edit', $sector->id) }}" class="btn btn-info">Edit</a>
-                             <button type="submit" onclick="handleDeleteSector( {{ $sector->id }}) " class="btn btn-danger">Delete</button>
+
+                             <button type="button" onclick="deletePost({{ $sector->id }})" class="btn btn-danger">Delete</button>
+
+                            <!--  <button class="btn btn-danger" type="button" onclick="deletePost({{ $sector->id }})">
+           
+                                  </button> -->
+
+            <form id="delete-form-{{ $sector->id }}" action="{{ route('admin.MinistrySectors.destroy',$sector->id) }}" method="POST" style="display: none;">
+              @csrf
+              @method('DELETE')
+           </form>
                           </td>
                         </tr>
                         @endforeach    
@@ -52,7 +69,7 @@
                     </div>
 
                      <!-- Modal -->
-                <div class="modal fade" id="deleteSectorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+             <!--    <div class="modal fade" id="deleteSectorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                       <form action="" id="deleteSectorForm" method="POST">
                           @csrf 
@@ -74,7 +91,7 @@
                               </div>
                       </form>
                   </div>
-              </div>
+              </div> -->
                       
                     </div>
                     @else 
@@ -89,17 +106,67 @@
             </div>
         </div>
     </div><!-- /.container -->
+
+
+
+
  @endsection
 
  @section('js')
-   <script>
-       function handleDeleteSector(id){
+
+   <!--  <script>
+     function handleDeleteSector(id){
 
           var form = document.getElementById('deleteSectorForm')
           form.action = 'MinistrySectors/' + id 
           $('#deleteSectorModal').modal('show')
           //console.log(form)
        }
-   </script>
+ </script> -->
 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script type="text/javascript">
+function deletePost(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+    confirmButton: 'btn btn-success m-2',
+    cancelButton: 'btn btn-danger m-2'
+    },
+    buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true
+    }).then((result) => {
+    if (result.value) {
+
+    event.preventDefault();
+    document.getElementById('delete-form-'+id).submit();
+
+    } else if (
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+    ) {
+    swalWithBootstrapButtons.fire(
+    'Cancelled',
+    'Your imaginary file is safe :)',
+    'error'
+    )
+    }
+    })
+} 
+
+</script>
+
+ 
+
+      
+  
 @endsection

@@ -46,7 +46,17 @@
                             <a href="{{ route('admin.Ministers.show', $Minister->id) }}" class="btn btn-success">Details</a>
 
                             <a href="{{ route('admin.Ministers.edit', $Minister->id) }}" class="btn btn-info">Edit</a>
-                             <button type="submit" onclick="handleDeleteMinister( {{ $Minister->id }}) " class="btn btn-danger">Delete</button>
+
+
+
+                            <button type="button" onclick="deletePost({{ $Minister->id }})" class="btn btn-danger">Delete</button>
+
+                          
+
+            <form id="delete-form-{{ $Minister->id }}" action="{{ route('admin.Ministers.destroy',$Minister->id) }}" method="POST" style="display: none;">
+              @csrf
+              @method('DELETE')
+           </form>
                           </td>
                         </tr>
                         @endforeach    
@@ -95,14 +105,44 @@
  @endsection
 
  @section('js')
-   <script>
-       function handleDeleteMinister(id){
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script type="text/javascript">
+function deletePost(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+    confirmButton: 'btn btn-success m-2',
+    cancelButton: 'btn btn-danger m-2'
+    },
+    buttonsStyling: false
+    })
 
-          var form = document.getElementById('deleteMinisterForm')
-          form.action = 'Ministers/' + id 
-          $('#deleteMinisterModal').modal('show')
-          //console.log(form)
-       }
-   </script>
+    swalWithBootstrapButtons.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true
+    }).then((result) => {
+    if (result.value) {
+
+    event.preventDefault();
+    document.getElementById('delete-form-'+id).submit();
+
+    } else if (
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+    ) {
+    swalWithBootstrapButtons.fire(
+    'Cancelled',
+    'Your imaginary file is safe :)',
+    'error'
+    )
+    }
+    })
+} 
+
+</script>
 
 @endsection
