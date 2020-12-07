@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 
@@ -21,8 +21,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('SectorDetails/{id}', 'AllShowController@SectorDetail')->name('Sectordetail');
+Route::get('MinisterDetails/{id}', 'AllShowController@MinisterDetail')->name('Ministerdetail');
+Route::get('AllMinisters', 'AllShowController@AllMinisters')->name('AllMinister');
+Route::get('AllSectors', 'AllShowController@AllSectors')->name('AllSector');
 
 Route::group([ 'as'=>'admin.', 'prefix'=>'admin' , 'namespace'=>'Admin', 'middleware'=>['auth','admin']],
 function(){

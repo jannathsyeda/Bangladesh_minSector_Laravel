@@ -30,11 +30,11 @@
                       <table id="dataTableId" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                          <th width="20%">#</th>
+                          <th >#</th>
                           <th>Sector Name</th>
-                            <th>Image</th>
+                            <th width="25%">Image</th>
                           <th>Created At</th>
-                          <th width="35%">Action</th>
+                          <th >Action</th>
                         </tr>
                         </thead>
                         <tbody>

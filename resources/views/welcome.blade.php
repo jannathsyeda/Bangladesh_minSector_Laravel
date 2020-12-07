@@ -1,100 +1,247 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.frontend.app')
 
-        <title>Laravel</title>
+@section('title', 'Bangladesh')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+@section('content')
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
 
-            .full-height {
-                height: 100vh;
-            }
+    <style>
+        .carousel-item {
+            height: 300px;
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        .carousel-item img {
+            height: 400px;
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+        }
 
-            .content {
-                text-align: center;
-            }
+        .card-body .card-text {}
 
-            .title {
-                font-size: 84px;
-            }
+    </style>
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+    {{-- --------------------1st------------------------ --}}
+    <section>
+        @php
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+        $sectorList=DB::table('ministry_sectors')->get();
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+        $sectors=DB::table('ministry_sectors')->first();
+        $sector_second=DB::table('ministry_sectors')->skip(1)->first();
+        $sector_third=DB::table('ministry_sectors')->skip(2)->first();
+        $posts=DB::table('Ministers')->take(4)->get();
+        $priminister=DB::table('Ministers')->where('status',0)->first();
+
+
+        @endphp
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="w-100" src="{{ asset('storage/ministers/' . $sectors->image) }}" alt="First slide">
+                    <div class="carousel-caption d-none d-md-block" style="color:black;">
+                        <strong>
+                            <h1>Banglades Govt.</h1>
+                        </strong>
+                        <p>Bangladesh all sector details and all sector details</p>
+                    </div>
                 </div>
-            @endif
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{{ asset('storage/ministers/' . $sector_second->image) }}"
+                        alt="Second slide">
+                    <div class="carousel-caption d-none d-md-block" style="color:black;">
+                        <strong>
+                            <h1>Banglades Govt.</h1>
+                        </strong>
+                        <p>Bangladesh all sector details and all sector details</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                    <img class="d-block w-100" src="{{ asset('storage/ministers/' . $sector_third->image) }}"
+                        alt="Third slide">
+                    <div class="carousel-caption d-none d-md-block" style="color:black;">
+                        <strong>
+                            <h1>Banglades Govt.</h1>
+                        </strong>
+                        <p>Bangladesh all sector details and all sector details</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+
+
+
+
+    </section>
+
+    {{-- --------------2nd----------------------- --}}
+
+    <section style="margin-top:30px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="list-group my-4 ">
+
+                        <h1 class="list-group-item list-group-item-action">All Sectors</h1>
+                        @foreach ($sectorList as $item)
+                            <a href="{{ route('Sectordetail', $item->id) }}"
+                                class="list-group-item list-group-item-action">{{ $item->sector }}</a>
+
+                        @endforeach
+
+                    </div>
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+
+                <div class="col-md-6">
+                    <div class="card mb-3 my-3 bg-dark text-white">
+                        <img class="card-img-top" src="{{ asset('storage/ministers/' . $priminister->image) }}"
+                            alt="Card image cap" style="height:250px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Bangladesh Prime Minister</h5>
+                            <p class="card-text">{!! str_limit($priminister->name) !!}</p>
+                                <a href="{{ route('Ministerdetail', $priminister->id) }}"
+                                    class="btn btn-info">Details</a>                         </div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>
-    </body>
-</html>
+
+    </section>
+
+
+    {{-- -----------------3rd------------- --}}
+
+    @php
+
+    $sectors=DB::table('ministry_sectors')->take(3)->get();
+
+    @endphp
+
+    <section>
+
+        <div class="container my-5">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <h1>Sectors</h1>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table">
+                                @foreach ($sectors as $row)
+                                    <tr>
+                                        <th>{{ $row->sector }}:
+                                            <img class="img-fluid" src="{{ asset('storage/ministers/' . $row->image) }}"
+                                                alt="image" style="width:170px;">
+                                        </th>
+
+                                        <td>
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    {!! str_limit( $row->description,1000) !!}
+
+                                                </div>
+                                                <div class="mt-auto p-2">
+                                                    <a href="{{ route('Sectordetail', $row->id) }}"
+                                                        class="btn btn-info">Details</a>
+
+                                                </div>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                    
+                                @endforeach
+
+                            </table>
+                            <div class="d-flex justify-content-around align-self-end">
+    
+                                <div class="p-4">
+                                    <a href="{{ route('AllSector') }}"
+                                        class="btn btn-info">SHow All Sectors</a>
+                            
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </section>
+
+
+
+    {{-- ---------------------4th-------------------}}
+
+   <section style="padding-bottom:100px; margin-top:100px">
+    <h1 style="text-align: center;">Ministers</h1>
+       <div class="container">
+    <div class="row">
+
+        @foreach ($posts as $b)
+        <div class="col-lg-3 col-md-4 col-sm-6">
+               
+
+            <div class="card text-center" style="background-color:hsla(0, 8%, 90%, 0.8)"; >
+                <img class="card-img-top" style="" src="{{ asset('storage/ministers/' . $b->image)   }}" alt="Card image cap">
+                <div class="card-body">
+                    <a style="text-decoration: none;" target="_blank" href="">{{ $b->name }}
+                    </a>  </div>
+               
+                <div class="row" style="font-size:12px;">
+                  <div class="col-md-12  m-1">
+                    <a href="{{ route('Ministerdetail', $b->id) }}"
+                        class="btn btn-info">Details</a>                  </div> 
+                  {{-- <div class="col-md-4">
+                    {{-- Viewers: {{ $b->view_count }} --}}
+                  {{-- </div>  --}}
+                </div>
+            </div>
+       
+        </div>
+        @endforeach
+
+     
+</div>
+
+<div class="d-flex justify-content-around align-self-end">
+    
+    <div class="p-4">
+        <a href="{{ route('AllMinister') }}"
+            class="btn btn-info">SHow All Ministers</a>
+
+    </div>
+</div>
+
+   </section>
+
+
+
+
+@endsection

@@ -75,7 +75,7 @@ class MinistersController extends Controller
               }
   
   
-              // Resize Image for category and upload
+              // Resize Image for category and upload 170,200
               $MinistersImage = Image::make($image)->resize(170,200)->stream();
               Storage::disk('public')->put('ministers/'.$imageName,$MinistersImage);
   
