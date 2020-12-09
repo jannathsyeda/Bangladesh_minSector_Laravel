@@ -38,4 +38,12 @@ class AllShowController extends Controller
 
     }
 
+    public function About(){
+        
+       return view('about');
+
+    }
+
+
+
 }

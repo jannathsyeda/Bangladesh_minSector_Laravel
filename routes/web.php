@@ -27,6 +27,8 @@ Route::get('SectorDetails/{id}', 'AllShowController@SectorDetail')->name('Sector
 Route::get('MinisterDetails/{id}', 'AllShowController@MinisterDetail')->name('Ministerdetail');
 Route::get('AllMinisters', 'AllShowController@AllMinisters')->name('AllMinister');
 Route::get('AllSectors', 'AllShowController@AllSectors')->name('AllSector');
+Route::get('About', 'AllShowController@About')->name('abouts');
+
 
 Route::group([ 'as'=>'admin.', 'prefix'=>'admin' , 'namespace'=>'Admin', 'middleware'=>['auth','admin']],
 function(){

@@ -8,12 +8,14 @@
         <li class="nav-item active">
           <a class="nav-link" href="{{ route('home') }}">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item ">
+          <a class="nav-link"  href="{{ route('abouts') }}">About</a>
+        </li>
+        <span style="margin-left:950px;">  <li class="nav-item ">
           <a class="nav-link"  href="{{ route('login') }}">Log in</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('register') }}">Register</a>
-        </li>
+        </span>
+        
         {{-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          All Sectors         </a>
