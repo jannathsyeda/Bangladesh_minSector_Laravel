@@ -11,12 +11,12 @@
 
         }
 
-        .carousel-item img {
+        /* .carousel-item img {
             height: 400px;
 
-        }
+        } */
 
-        .card-body .card-text {}
+        
 
     </style>
 
@@ -30,14 +30,13 @@
         $sector_second=DB::table('ministry_sectors')->skip(1)->first();
         $sector_third=DB::table('ministry_sectors')->skip(2)->first();
         $posts=DB::table('Ministers')->take(4)->get();
-        $priminister=DB::table('Ministers')->where('status',0)->first();
-
+        $priminister=DB::table('Ministers')->where('status',1)->first();
 
         @endphp
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="w-100" src="{{ asset('storage/ministers/' . $sectors->image) }}" alt="First slide">
+                    <img class="w-100" src="{{ asset('storage/category/slider/' . $sectors->image) }}" alt="First slide">
                     <div class="carousel-caption d-none d-md-block" style="color:black;">
                         <strong>
                             <h1>Banglades Govt.</h1>
@@ -46,7 +45,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="{{ asset('storage/ministers/' . $sector_second->image) }}"
+                    <img class="d-block w-100" src="{{ asset('storage/category/slider/' . $sector_second->image) }}"
                         alt="Second slide">
                     <div class="carousel-caption d-none d-md-block" style="color:black;">
                         <strong>
@@ -57,7 +56,7 @@
                 </div>
                 <div class="carousel-item">
 
-                    <img class="d-block w-100" src="{{ asset('storage/ministers/' . $sector_third->image) }}"
+                    <img class="d-block w-100" src="{{ asset('storage/category/slider/' . $sector_third->image) }}"
                         alt="Third slide">
                     <div class="carousel-caption d-none d-md-block" style="color:black;">
                         <strong>

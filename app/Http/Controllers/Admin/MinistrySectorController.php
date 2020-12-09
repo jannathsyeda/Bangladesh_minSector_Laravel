@@ -71,7 +71,19 @@ class MinistrySectorController extends Controller
               $SectorImage = Image::make($image)->resize(170,200)->stream();
               Storage::disk('public')->put('ministers/'.$imageName,$SectorImage);
   
-     }else{
+     // Check Category Slider Dir is exists
+   
+     if (!Storage::disk('public')->exists('category/slider')) {
+        Storage::disk('public')->makeDirectory('category/slider');
+     }
+
+
+     // Resize Image for category slider and upload
+     $slider = Image::make($image)->resize(1600,479)->stream();
+     Storage::disk('public')->put('category/slider/'.$imageName,$slider);
+    
+    
+            }else{
       $imageName = "default.png";
      }
 

@@ -21,6 +21,8 @@ class CreateMinistersTable extends Migration
             $table->text('achievement');
             $table->string('gender');
             $table->text('details');
+            $table->boolean('status')->default(false);
+
             $table->timestamps();
         });
     }
