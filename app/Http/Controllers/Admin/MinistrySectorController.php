@@ -163,6 +163,25 @@ class MinistrySectorController extends Controller
         // Resize Image for category and upload
         $SectorImage = Image::make($image)->resize(170,200)->stream();
         Storage::disk('public')->put('ministers/'.$imageName,$SectorImage);
+
+
+
+         // Check Category Slider Dir is exists
+   
+         if (!Storage::disk('public')->exists('category/slider')) {
+            Storage::disk('public')->makeDirectory('category/slider');
+         }
+
+
+         // Delete Old Image Slider 
+       if (Storage::disk('public')->exists('category/slider/'.$MinistrySector->image)) {
+          Storage::disk('public')->delete('category/slider/'.$MinistrySector->image);
+         }  
+
+
+         // Resize Image for category slider and upload
+         $slider = Image::make($image)->resize(1600,479)->stream();
+         Storage::disk('public')->put('category/slider/'.$imageName,$slider);
   
      }else{
 
@@ -171,7 +190,10 @@ class MinistrySectorController extends Controller
         $imageName = $currentDate.'-'.uniqid().'.'.$ext;
               
         Storage::disk('public')->rename('ministers/'.$MinistrySector->image, 'ministers/'.$imageName);
+
+        Storage::disk('public')->rename('category/slider/'.$MinistrySector->image, 'category/slider/'.$imageName);
         $MinistrySector->image = $imageName;
+
      }
   
     
@@ -193,6 +215,16 @@ class MinistrySectorController extends Controller
     public function destroy(MinistrySector $MinistrySector)
     {
        $MinistrySector->delete();
+        // Delete Old Image 
+        if (Storage::disk('public')->exists('ministers/'.$MinistrySector->image)){
+            Storage::disk('public')->delete('ministers/'.$MinistrySector->image);
+           }  
+            // Delete Old Image Slider 
+         if (Storage::disk('public')->exists('category/slider/'.$MinistrySector->image)) {
+            Storage::disk('public')->delete('category/slider/'.$MinistrySector->image);
+           }  
+
+
 
         return redirect(route('admin.MinistrySectors.index'))->with('success', 'Sector deleted Successfully');
     }
